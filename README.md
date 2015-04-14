@@ -22,12 +22,29 @@ $ brew install postgresql
 Be sure to make a 'db' folder at the project root as it is in the .gitignore
 file and each user must create their own.
 
+---
+### Gulp: Installation
+
+If you do not already have gulp installed globally run:
+```
+$ npm install -g gulp
+```
+
+---
+### npm
+To install the dependencies listed in package.json run:
+```
+$ npm install
+```
+
+
 ##Build Procedure
 
 Build client js and html to build folder to serve.
 ```
 gulp build
 ```
+
 
 ##Contributers
 
