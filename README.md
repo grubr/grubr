@@ -1,4 +1,6 @@
+![build status](https://travis-ci.org/grubr/grubr)
 # grubr
+
 Web app to allow people to find the food truck they want.
 
 
