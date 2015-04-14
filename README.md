@@ -20,6 +20,12 @@ $ brew install postgresql
 Be sure to make a 'db' folder at the project root as it is in the .gitignore
 file and each user must create their own.
 
+##Build Procedure
+
+Build client js and html to build folder to serve.
+```
+gulp build
+```
 
 ##Contributers
 
