@@ -13,6 +13,7 @@
     "chai-http": "^1.0.0",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
+    "gulp-jscs": "^1.5.1",
     "gulp-jshint": "^1.10.0",
     "gulp-mocha": "^2.0.1",
     "gulp-rename": "^1.2.2",
