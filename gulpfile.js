@@ -1,13 +1,17 @@
 'use strict';
 
+var path = require('path');
 var gulp = require('gulp');
-
+var webapack = require('gulp-webpack-build');
 var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var webpack = require('gulp-webpack');
 var wpConfig = require('./webpackConfig.js');
+
+
+// Concatenate Client
 
 gulp.task('webpack', function() {
   return gulp.src('./client/**/*.js')
@@ -22,3 +26,4 @@ gulp.task('clienthtml', function() {
 });
 
 gulp.task('build', ['webpack', 'clienthtml']);
+
