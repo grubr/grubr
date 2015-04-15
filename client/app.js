@@ -2,4 +2,6 @@
 
 require('angular/angular');
 
-var app = angular.module('grubr', []);
+var grubrApp = angular.module('grubr', []);
+
+require('./controllers/mapController')(grubrApp);
