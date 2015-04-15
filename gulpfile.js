@@ -1,7 +1,7 @@
 'use strict';
 
+var path = require('path');
 var gulp = require('gulp');
-
 var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -19,9 +19,8 @@ gulp.task('webpack', function() {
 
 gulp.task('clienthtml', function() {
   return gulp.src('client/**/*.html')
-             .pipe(gulp.dest('build/'));
+             .pipe(gulp.dest('./build/'));
 });
 
-
-gulp.task('build', ['clientjs', 'clienthtml']);
+gulp.task('build', ['webpack', 'clienthtml']);
 
