@@ -2,4 +2,4 @@
 
 require('angular/angular');
 
-var app = angular.module('grubr', [])
+var app = angular.module('grubr', []);
