@@ -9,6 +9,13 @@
   <header>
     <h1>grubr</h1>
   </header>
+  <main data-ng-controller="mapController">
+    {{ test }}
+    <google-map center="map.center" zoom="map.zoom">
+
+
+    </google-map>
+  </main>
 
 
 
@@ -18,6 +25,9 @@
 
 
   <!-- script tags -->
+  <script src="//maps.googleapis.com/maps/api/js"></script>
+<!--   // <script src="../bower_components/lodash/dist/lodash.compat.min.js"></script>
+  // <script src="../bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script> -->
   <script type="text/javascript" src="build.js"></script>
 
 
