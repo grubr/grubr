@@ -1,8 +1,13 @@
+'use strict';
+
 var express = require('express');
+var app = express();
 var db = require('../db-models/db_config')();
 
-var app = express();
+app.use(express.static(__dirname + '/../build'));
 
-app.listen(process.env.PORT || 3000, function() {
-  console.log('server running');
+var mainRouter = express.Router();
+
+app.listen(process.env.port || 3333, function() {
+  console.log('Server ready for face stuffing on port ' + (process.env.PORT || 3333));
 });

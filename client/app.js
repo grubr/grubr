@@ -1,5 +1,7 @@
 'use strict';
 
-// require('angular/angular');
+require('angular/angular');
 
-var app = angular.module('grubr', []);
+var grubrApp = angular.module('grubr', []);
+
+require('./controllers/mapController')(grubrApp);
