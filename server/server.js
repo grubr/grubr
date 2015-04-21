@@ -2,6 +2,7 @@
 
 var express = require('express');
 var app = express();
+var db = require('../db-models/db_config')();
 
 app.use(express.static(__dirname + '/../build'));
 
