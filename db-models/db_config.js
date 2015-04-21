@@ -1,13 +1,26 @@
 module.exports = function() {
-  require('pg-hstore');
 
+  require('pg-hstore');
   var Sequelize = require('sequelize');
-  var sequelize = new Sequelize('grubr', null, null, {
+  var grubrDb = new Sequelize('grubr', null, null, {
     host: 'localhost',
-    dialect: 'postgres'
+    dialect: 'postgres',
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    }
   });
 
-  var trucks = require('./trucks');
-  var location = require('./location');
+  //pass in our database into the sequel models
+  Truck = require('./trucks_model')(grubrDb);
+  Location = require('./locations_model')(grubrDb);
+
+  Truck.sync();
+  Location.sync();
+
+  return {
+    grubrDb: grubrDb
+  };
 
 };
