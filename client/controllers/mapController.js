@@ -1,45 +1,75 @@
 'use strict';
 
+var testArray = require('../lib/testArray');
+
 module.exports = function(app) {
   app.controller('mapController', ['$scope', '$http', function($scope, $http){
     $scope.test = 'hello';
-    $scope.markers = [];
+    $scope.trucks = testArray;
     $scope.markersShown = [];
-    $scope.testMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(47.620171, -122.337062),
-      title: "test marker"
-    });
 
+    $scope.map;
+
+    //initialize map with all markers for that area
     $scope.initialize = function() {
+
       var mapCanvas = document.getElementById('map-canvas');
       var mapOptions = {
         center: new google.maps.LatLng(47.620171, -122.337062),
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-      var map = new google.maps.Map(mapCanvas, mapOptions);
-      $scope.testMarker.setMap(map);
+      };
+
+      $scope.map = new google.maps.Map(mapCanvas, mapOptions);
+
+      for(var i = 0; i < $scope.trucks.length; i++) {
+
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng($scope.trucks[i].lat, $scope.trucks[i].long),
+          title: $scope.trucks[i].name
+        });
+        $scope.markersShown.push(marker);
+        marker.setMap($scope.map);
+      };
+
     };
 
     google.maps.event.addDomListener(window, 'load', $scope.initialize);
 
-    $scope.getAllMarkers = function() {
+    $scope.getAllTrucks = function() {
       $http({
         method: 'GET',
         url: '/INSERT ROUTE HERE'
       })
       .success(function(data) {
-        $scope.markers = data;
-        $scope.markersShown = data;
+        $scope.trucks = data;
       })
       .error(function(data) {
         console.log(data);
       });
     };
 
-    $scope.filterMarkers = function(filter) {
+    $scope.filterMarkersByType = function(foodType) {
 
-    }
+      for(var i = 0; i < $scope.markersShown.length; i++) {
+        console.log('marker removed');
+        $scope.markersShown[i].setMap(null);
+      };
+
+      $scope.markersShown = [];
+
+      for(i = 0; i < $scope.trucks.length; i++) {
+        if ($scope.trucks[i].type == foodType) {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng($scope.trucks[i].lat, $scope.trucks[i].long),
+            title: $scope.trucks[i].name
+          });
+          marker.setMap($scope.map);
+          $scope.markersShown.push(marker);
+        }
+      };
+
+    };
 
   }]);
-}
+};
