@@ -5,45 +5,44 @@ var testArray = require('../lib/testArray');
 module.exports = function(app) {
   app.controller('mapController', ['$scope', '$http', function($scope, $http){
     $scope.test = 'hello';
-    $scope.markers = testArray;
+    $scope.trucks = testArray;
     $scope.markersShown = [];
-    $scope.testMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(47.620171, -122.337062),
-      title: "test marker"
-    });
 
-    var mapCanvas = document.getElementById('map-canvas');
-    var mapOptions = {
-      center: new google.maps.LatLng(47.620171, -122.337062),
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(mapCanvas, mapOptions);
-
+    $scope.map;
 
     //initialize map with all markers for that area
     $scope.initialize = function() {
 
-      for(var i = 0; i < $scope.markers.length; i++) {
+      var mapCanvas = document.getElementById('map-canvas');
+      var mapOptions = {
+        center: new google.maps.LatLng(47.620171, -122.337062),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      $scope.map = new google.maps.Map(mapCanvas, mapOptions);
+
+      for(var i = 0; i < $scope.trucks.length; i++) {
+
         var marker = new google.maps.Marker({
-          position: new google.maps.LatLng($scope.markers[i].lat, $scope.markers[i].long),
-          title: $scope.markers[i].name
+          position: new google.maps.LatLng($scope.trucks[i].lat, $scope.trucks[i].long),
+          title: $scope.trucks[i].name
         });
-        marker.setMap(map);
+        $scope.markersShown.push(marker);
+        marker.setMap($scope.map);
       };
 
     };
 
     google.maps.event.addDomListener(window, 'load', $scope.initialize);
 
-    $scope.getAllMarkers = function() {
+    $scope.getAllTrucks = function() {
       $http({
         method: 'GET',
         url: '/INSERT ROUTE HERE'
       })
       .success(function(data) {
-        $scope.markers = data;
-        $scope.markersShown = data;
+        $scope.trucks = data;
       })
       .error(function(data) {
         console.log(data);
@@ -51,21 +50,23 @@ module.exports = function(app) {
     };
 
     $scope.filterMarkersByType = function(foodType) {
-      setAllMap(null);
 
-      console.log('hit filter');
-      for (var i = 0; i < $scope.markers.length; i++) {
-        if($scope.markers[i].type == foodType) {
-          $scope.markersShown.push($scope.markers[i]);
+      for(var i = 0; i < $scope.markersShown.length; i++) {
+        console.log('marker removed');
+        $scope.markersShown[i].setMap(null);
+      };
+
+      $scope.markersShown = [];
+
+      for(i = 0; i < $scope.trucks.length; i++) {
+        if ($scope.trucks[i].type == foodType) {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng($scope.trucks[i].lat, $scope.trucks[i].long),
+            title: $scope.trucks[i].name
+          });
+          marker.setMap($scope.map);
+          $scope.markersShown.push(marker);
         }
-      }
-
-      for(i = 0; i < $scope.markersShown.length; i++) {
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng($scope.markersShown[i].lat, $scope.markersShown[i].long),
-          title: $scope.markersShown[i].name
-        });
-        marker.setMap(map);
       };
 
     };

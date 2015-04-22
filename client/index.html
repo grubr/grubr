@@ -21,9 +21,9 @@
   <main data-ng-controller="mapController">
     {{ test }}
     <div id="map-canvas"></div>
-    <select data-ng-model="foodType" data-ng-click="filterMarkersByType(Mexican)">
-      <option value="volvo">Mexican</option>
-      <option value="saab">Other</option>
+    <select data-ng-model="foodType" data-ng-change="filterMarkersByType(foodType)">
+      <option value="Mexican" data-ng-click="filterMarkersByType(foodType)">Mexican</option>
+      <option value="Other">Other</option>
     </select>
     <select data-ng-model="truckName">
       <option data-ng-repeat="truck in markers">{{truck.name}}</option>
