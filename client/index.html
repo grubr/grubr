@@ -20,11 +20,10 @@
     {{ test }}
     <div id="map-canvas"></div>
     <select data-ng-model="foodType" data-ng-change="filterMarkersByType(foodType)">
-      <option data-ng-repeat="truck in marker" value="Mexican" data-ng-click="filterMarkersByType(foodType)">Mexican</option>
-      <option value="Other">Other</option>
+      <option data-ng-repeat="type in allFoodTypes" value="{{type}}">{{type}}</option>
     </select>
-    <select data-ng-model="truckName">
-      <option data-ng-repeat="truck in markers">{{truck.name}}</option>
+    <select data-ng-model="truckName" data-ng-change="filterMarkersByName(truckName)">
+      <option data-ng-repeat="truck in trucks" value"{{truck.name}}">{{truck.name}}</option>
     </select>
 
   </main>
