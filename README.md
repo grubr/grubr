@@ -22,6 +22,18 @@ $ brew install postgresql
 Be sure to make a 'db' folder at the project root as it is in the .gitignore
 file and each user must create their own.
 
+Initialize a local database:
+```
+$ createdb grubr
+```
+
+To access / exit the postres shell interface:
+```
+$ psql grubr
+$ /q
+```
+
+
 ---
 ### Gulp: Installation
 
