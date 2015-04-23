@@ -30,7 +30,7 @@ $ createdb grubr
 To access / exit the postres shell interface:
 ```
 $ psql grubr
-$ /q
+$ \q
 ```
 
 
