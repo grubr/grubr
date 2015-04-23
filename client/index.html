@@ -10,8 +10,6 @@
     }
   </style>
   <script src="https://maps.googleapis.com/maps/api/js"></script>
-  <script>
-  </script>
   <script type="text/javascript" src="build.js"></script>
 </head>
 <body ng-app="grubr">
@@ -22,7 +20,7 @@
     {{ test }}
     <div id="map-canvas"></div>
     <select data-ng-model="foodType" data-ng-change="filterMarkersByType(foodType)">
-      <option value="Mexican" data-ng-click="filterMarkersByType(foodType)">Mexican</option>
+      <option data-ng-repeat="truck in marker" value="Mexican" data-ng-click="filterMarkersByType(foodType)">Mexican</option>
       <option value="Other">Other</option>
     </select>
     <select data-ng-model="truckName">
