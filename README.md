@@ -64,7 +64,7 @@ gulp build
 * Rory Sterley
 * Sean Golob
 * Jake Barnett
-* Nick Klunder
+* Ryan Raeburn
 
 
 ##License
