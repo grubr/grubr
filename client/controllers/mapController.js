@@ -7,7 +7,8 @@ module.exports = function(app) {
     $scope.test = 'hello';
     $scope.trucks = testArray;
     $scope.markersShown = [];
-
+    $scope.allFoodTypes = getFoodTypes($scope.trucks);
+    console.log($scope.allFoodTypes);
     $scope.map;
 
     //initialize map with all markers for that area
@@ -36,6 +37,19 @@ module.exports = function(app) {
 
     google.maps.event.addDomListener(window, 'load', $scope.initialize);
 
+    function getFoodTypes(allTrucks){
+      var arr = [];
+      var seen = {};
+      for (var i = 0; i < allTrucks.length; i++){
+        if(!seen[allTrucks[i].type]){
+          seen[allTrucks[i].type] = true;
+          arr.push(allTrucks[i].type);
+        }
+      }
+      console.log(arr);
+      return arr;
+    }
+
     $scope.getAllTrucks = function() {
       $http({
         method: 'GET',
@@ -51,8 +65,9 @@ module.exports = function(app) {
 
     $scope.filterMarkersByType = function(foodType) {
 
+      console.log(foodType);
+
       for(var i = 0; i < $scope.markersShown.length; i++) {
-        console.log('marker removed');
         $scope.markersShown[i].setMap(null);
       };
 
@@ -60,6 +75,27 @@ module.exports = function(app) {
 
       for(i = 0; i < $scope.trucks.length; i++) {
         if ($scope.trucks[i].type == foodType) {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng($scope.trucks[i].lat, $scope.trucks[i].long),
+            title: $scope.trucks[i].name
+          });
+          marker.setMap($scope.map);
+          $scope.markersShown.push(marker);
+        }
+      };
+
+    };
+
+    $scope.filterMarkersByName = function(foodName) {
+
+      for(var i = 0; i < $scope.markersShown.length; i++) {
+        $scope.markersShown[i].setMap(null);
+      };
+
+      $scope.markersShown = [];
+
+      for(i = 0; i < $scope.trucks.length; i++) {
+        if ($scope.trucks[i].name == foodName) {
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng($scope.trucks[i].lat, $scope.trucks[i].long),
             title: $scope.trucks[i].name
