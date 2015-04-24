@@ -12,7 +12,7 @@ module.exports = function() {
     }
   });
 
-  //pass in our database into the sequel models
+  // pass in our database into the sequel models
   Truck = require('./trucks_model')(grubrDb);
   Location = require('./locations_model')(grubrDb);
 
@@ -20,6 +20,8 @@ module.exports = function() {
   Location.sync();
 
   return {
+    trucks: Truck,
+    locations: Location,
     grubrDb: grubrDb
   };
 
