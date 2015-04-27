@@ -89,5 +89,24 @@ module.exports = function(app) {
         }
       };
     };
+
+    $scope.filterMarkersByName = function(foodName) {
+      for(var i = 0; i < $scope.markersShown.length; i++) {
+        $scope.markersShown[i].setMap(null);
+      };
+
+      $scope.markersShown = [];
+
+      for(i = 0; i < $scope.trucks.length; i++) {
+        if ($scope.trucks[i].name == foodName) {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng($scope.trucks[i].lat, $scope.trucks[i].long),
+            title: $scope.trucks[i].name
+          });
+          marker.setMap($scope.map);
+          $scope.markersShown.push(marker);
+        }
+      };
+    };
   }]);
 };
