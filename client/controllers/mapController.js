@@ -1,4 +1,3 @@
-
 'use strict';
 
 var testArray = require('../lib/testArray');
@@ -8,6 +7,8 @@ module.exports = function(app) {
     $scope.test = 'hello';
     $scope.trucks = testArray;
     $scope.markersShown = [];
+    $scope.allFoodTypes = getFoodTypes($scope.trucks);
+    console.log($scope.allFoodTypes);
 
     $scope.map;
 
@@ -46,6 +47,19 @@ module.exports = function(app) {
     };
 
     google.maps.event.addDomListener(window, 'load', $scope.initialize);
+
+    function getFoodTypes(allTrucks){
+     var arr = [];
+      var seen = {};
+      for (var i = 0; i < allTrucks.length; i++){
+        if(!seen[allTrucks[i].type]){
+          seen[allTrucks[i].type] = true;
+          arr.push(allTrucks[i].type);
+        }
+      }
+      console.log(arr);
+      return arr;
+    }
 
     $scope.getAllTrucks = function() {
       $http({
