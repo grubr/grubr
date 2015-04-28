@@ -30,7 +30,7 @@ $ createdb grubr
 To access / exit the postres shell interface:
 ```
 $ psql grubr
-$ /q
+$ \q
 ```
 ---
 ### Run Server w/ psql and superagent
@@ -75,7 +75,7 @@ gulp build
 * Rory Sterley
 * Sean Golob
 * Jake Barnett
-* Nick Klunder
+* Ryan Raeburn
 
 
 ##License
