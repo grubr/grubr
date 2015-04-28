@@ -91,6 +91,9 @@ module.exports = function(app) {
     };
 
     $scope.filterMarkersByName = function(foodName) {
+      
+      var infowindow = new google.maps.InfoWindow({});
+      
       for(var i = 0; i < $scope.markersShown.length; i++) {
         $scope.markersShown[i].setMap(null);
       };
@@ -105,6 +108,13 @@ module.exports = function(app) {
           });
           marker.setMap($scope.map);
           $scope.markersShown.push(marker);
+
+          google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+              infowindow.setContent(this.title);
+              infowindow.open($scope.map, marker);
+            }
+          })(marker));
         }
       };
     };
