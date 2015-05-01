@@ -4,8 +4,6 @@ var express = require('express');
 var app = express();
 var truckRoute = require('./routes/truck-routes');
 
-// var grubrdb = require('../db-models/db_config')();
-
 app.use(express.static(__dirname + '/../build'));
 
 //app.set('appSecret', process.env.SECRET || 'eatme!eatme!eatme!eatme!eatme!');
