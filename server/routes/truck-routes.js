@@ -8,10 +8,8 @@ var eatAuth = require('../lib/eat_auth');
 module.exports = function(app) {
   app.use(bodyParser.json());
 
-
   app.get('/trucks', /*eatAuth(appSecret),*/ function(req, res) {
-    console.log('hit truck route');
-    DB.trucks.findAll().then(function(truck) {
+    DB.truck.findAll().then(function(truck) {
       res.send(truck);
     }).catch(function(error) {
       res.send({'msg': 'Unable to find truck.'});
