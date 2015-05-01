@@ -61,23 +61,25 @@ module.exports = function(app) {
       return arr;
     }
 
-    $scope.getAllTrucks = function() {
+    function getAllTrucks() {
       $http({
         method: 'GET',
-        url: '/INSERT ROUTE HERE'
+        url: 'api/v1/trucks'
       })
       .success(function(data) {
-        $scope.trucks = data;
+        console.log(data);
       })
       .error(function(data) {
         console.log(data);
       });
-    };
+    }
+
+    getAllTrucks();
 
     $scope.filterMarkersByType = function(foodType) {
-      
+
       var infowindow = new google.maps.InfoWindow({});
-      
+
       for(var i = 0; i < $scope.markersShown.length; i++) {
         console.log('marker removed');
         $scope.markersShown[i].setMap(null);
@@ -93,7 +95,7 @@ module.exports = function(app) {
           });
           marker.setMap($scope.map);
           $scope.markersShown.push(marker);
-          
+
           google.maps.event.addListener(marker, 'click', (function(marker) {
             return function() {
               infowindow.setContent(this.title);
@@ -105,9 +107,9 @@ module.exports = function(app) {
     };
 
     $scope.filterMarkersByName = function(foodName) {
-      
+
       var infowindow = new google.maps.InfoWindow({});
-      
+
       for(var i = 0; i < $scope.markersShown.length; i++) {
         $scope.markersShown[i].setMap(null);
       };
